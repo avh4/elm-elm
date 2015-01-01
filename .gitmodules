@@ -1,0 +1,6 @@
+[submodule "submodules/elm-keys"]
+	path = submodules/elm-keys
+	url = https://github.com/avh4/elm-keys.git
+[submodule "submodules/rectified-elm"]
+	path = submodules/rectified-elm
+	url = https://github.com/avh4/rectified-elm.git

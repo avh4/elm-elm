@@ -1,0 +1,19 @@
+{
+    "version": "1.0.0",
+    "summary": "experimental structural editor for the Elm programming language",
+    "repository": "https://github.com/avh4/elm-elm.git",
+    "license": "BSD3",
+    "source-directories": [
+        ".",
+        "submodules/elm-keys",
+        "submodules/rectified-elm"
+    ],
+    "native-modules": true,
+    "exposed-modules": [],
+    "dependencies": {
+        "deadfoxygrandpa/Elm-Test": "1.0.2 <= v < 2.0.0",
+        "maxsnew/IO": "1.0.0 <= v < 2.0.0",
+        "elm-lang/core": "1.0.0 <= v < 2.0.0",
+        "evancz/elm-html": "1.0.0 <= v < 2.0.0"
+    }
+}
