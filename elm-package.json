@@ -1,0 +1,16 @@
+{
+    "version": "1.0.0",
+    "summary": "Elm AST in Elm",
+    "repository": "https://github.com/avh4/elm-elm.git",
+    "license": "MIT",
+    "source-directories": [
+        "src/main"
+    ],
+    "exposed-modules": [
+        "Elm"
+    ],
+    "dependencies": {
+        "elm-lang/core": "2.1.0 <= v < 3.0.0"
+    },
+    "elm-version": "0.15.1 <= v < 0.16.0"
+}
