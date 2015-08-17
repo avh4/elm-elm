@@ -2,6 +2,7 @@ module Elm.Parser where
 
 import Parser exposing (Parser)
 import Parser.Char as Parser
+import Parser.Number as Parser
 import Elm.AST as AST
 
 import String
@@ -25,7 +26,7 @@ object4 fn a b c d =
 -- PARSE
 
 parse : String -> Result String AST.Module
-parse = Parser.parse parser
+parse = Parser.parse module'
 
 
 -- BASIC SYNTAX
@@ -44,12 +45,35 @@ moduleName =
         (Parser.some Parser.lower)
 
 
+variableName : Parser String
+variableName =
+    object2 (\a b -> List.foldr String.cons "" (a::b))
+        Parser.lower
+        (Parser.some Parser.lower)
+
+
 -- AST
 
-parser : Parser AST.Module
-parser =
-    object4 (\_ _ name declarations -> AST.module' {name=name, imports=[], declarations=declarations})
-        (Parser.token "module")
-        whitespace
-        (moduleName)
-        (Parser.succeed [AST.definition {name="foo", value=AST.literalNumber 42}])
+expression : Parser AST.Expression
+expression =
+    Parser.choice
+        [ Parser.integer |> Parser.map AST.literalNumber
+        ]
+
+
+definition : Parser AST.Definition
+definition =
+    (\name _ value -> AST.definition {name=name, value=value})
+    `Parser.map` variableName
+    `Parser.and` (Parser.token " = ")
+    `Parser.and` expression
+
+
+module' : Parser AST.Module
+module' =
+    (\_ _ name _ declarations -> AST.module' {name=name, imports=[], declarations=declarations})
+    `Parser.map` (Parser.token "module")
+    `Parser.and` whitespace
+    `Parser.and` (moduleName)
+    `Parser.and` (Parser.token " where\n\n")
+    `Parser.and` (Parser.many definition)
